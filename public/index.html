@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GovGuide AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600&family=Source+Serif+4:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f5f2;--surf:#fff;--ink:#16201b;--mut:#56635c;--line:#d9dfda;--g:#0c5a43;--gd:#083f2f;--gl:#e3f0ea;--gold:#b9810f;--goldl:#fbf0d6;--red:#a62a2a;--redl:#f9e3e1;--blue:#1d4f91;--bluel:#e1ebf7;--fs:16px}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1512;--surf:#18211c;--ink:#e8eee9;--mut:#9aa9a0;--line:#2b3830;--g:#4cb48f;--gd:#0c5a43;--gl:#183328;--gold:#e2b04a;--goldl:#33290f;--red:#ef8a84;--redl:#3a1b1a;--blue:#8db6ee;--bluel:#172a45}}
+:root[data-theme="dark"]{--bg:#0f1512;--surf:#18211c;--ink:#e8eee9;--mut:#9aa9a0;--line:#2b3830;--g:#4cb48f;--gd:#0c5a43;--gl:#183328;--gold:#e2b04a;--goldl:#33290f;--red:#ef8a84;--redl:#3a1b1a;--blue:#8db6ee;--bluel:#172a45}
+:root[data-contrast="hi"]{--ink:#000;--mut:#222;--line:#000;--bg:#fff;--surf:#fff}
+:root[data-theme="dark"][data-contrast="hi"]{--ink:#fff;--mut:#ddd;--line:#fff;--bg:#000;--surf:#000}
+*{box-sizing:border-box}
+html{font-size:var(--fs);height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;line-height:1.5;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;margin:0;line-height:1.2}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.sa{height:6px;background:linear-gradient(90deg,#0c5a43 0 40%,#e2b04a 40% 55%,#16201b 55% 70%,#a62a2a 70% 85%,#1d4f91 85%)}
+.btn{background:var(--g);color:#fff;border:0;border-radius:8px;padding:.65rem 1.1rem;font-weight:600}
+:root[data-theme="dark"] .btn,:root:not([data-theme="light"]) .btn{color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:.4rem .8rem;font-size:.88rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+/* login */
+#login{max-width:960px;margin:0 auto;padding:2.5rem 1.25rem}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:"Source Serif 4",serif;font-weight:600;font-size:1.3rem}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--g);color:#fff;display:grid;place-items:center;font-size:1rem}
+.hero{margin:2.5rem 0 1.5rem;max-width:640px}
+.hero h1{font-size:2.3rem}
+.hero p{color:var(--mut);font-size:1.05rem}
+.notice{background:var(--goldl);border:1px solid var(--gold);border-radius:10px;padding:.7rem 1rem;font-size:.9rem;margin-bottom:1.25rem}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2rem;color:var(--mut);font-size:.92rem}
+.how b{color:var(--ink);display:block}
+.auth{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:1.5rem;align-items:start}
+.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:1rem}
+.tabs button{flex:1;border:0;background:transparent;padding:.7rem;font-weight:600;color:var(--mut);border-bottom:3px solid transparent}
+.tabs [aria-selected="true"]{color:var(--g);border-bottom-color:var(--g)}
+#authbox{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:1.25rem}
+#authbox label{display:block;font-size:.88rem;font-weight:600;margin-bottom:.8rem}
+#authbox input{display:block;width:100%;margin-top:.3rem;padding:.65rem .8rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-weight:400}
+#authbox dl{display:grid;grid-template-columns:100px 1fr;gap:.35rem .8rem;font-size:.92rem;margin:1rem 0}#authbox dt{color:var(--mut)}#authbox dd{margin:0}
+.demo{font-size:.85rem;color:var(--mut);background:var(--surf);border:1px dashed var(--line);border-radius:12px;padding:1rem;line-height:1.7;overflow-wrap:anywhere}
+.pub{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.75rem}
+.pub a{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem;color:var(--ink);text-decoration:none;font-weight:600}
+.pub a:hover{border-color:var(--g)}.pub small{display:block;font-weight:400;color:var(--mut)}
+@media(max-width:760px){.auth{grid-template-columns:1fr}}
+/* app */
+#app{display:none;min-height:100vh}
+header.top{display:flex;align-items:center;gap:.75rem;padding:.7rem 1.25rem;background:var(--surf);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.top .sp{flex:1}
+.who{font-size:.85rem;text-align:right;line-height:1.3}
+.who span{color:var(--mut)}
+.status-pill{font-size:.78rem;font-weight:600;border-radius:99px;padding:.2rem .65rem;border:1px solid var(--line);background:var(--bg);color:var(--mut)}
+.status-pill.ok{background:var(--gl);border-color:var(--g);color:var(--g)}
+.status-pill.local{background:var(--goldl);border-color:var(--gold);color:var(--gold)}
+.status-pill.bad{background:var(--redl);border-color:var(--red);color:var(--red)}
+.tools{display:flex;gap:.35rem}
+.tools button{border:1px solid var(--line);background:transparent;border-radius:8px;padding:.3rem .6rem;font-weight:600}
+.tools button[aria-pressed="true"]{background:var(--g);color:#fff;border-color:var(--g)}
+.layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 80px)}
+nav.side{padding:1rem;border-right:1px solid var(--line);background:var(--surf);display:flex;flex-direction:column;gap:.25rem}
+nav.side button{text-align:left;border:0;background:transparent;border-radius:8px;padding:.55rem .75rem;display:flex;justify-content:space-between}
+nav.side button[aria-current="true"]{background:var(--gl);color:var(--g);font-weight:600}
+nav.side h3{font-size:.8rem;color:var(--mut);margin:1rem .75rem .25rem;font-family:"Public Sans",sans-serif;font-weight:600}
+main{padding:1.5rem;max-width:980px;width:100%}
+.headrow{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.search{display:flex;gap:.5rem;margin:1rem 0}
+.search input{flex:1;padding:.7rem .9rem;border:1px solid var(--line);border-radius:8px;background:var(--surf)}
+.dl{display:flex;flex-direction:column;gap:.6rem}
+.doc{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem;display:flex;gap:1rem;align-items:center;text-align:left;width:100%}
+.doc .t{flex:1}
+.doc .t b{display:block}
+.doc .t small{color:var(--mut)}
+.doc:hover{border-color:var(--g)}
+.doc.lock{opacity:.7}
+.tag{font-size:.75rem;font-weight:600;border-radius:99px;padding:.1rem .6rem;white-space:nowrap}
+.tag.cur{background:var(--gl);color:var(--g)}
+.tag.sup{background:var(--redl);color:var(--red)}
+.tag.dra{background:var(--goldl);color:var(--gold)}
+.tag.rev{background:var(--bluel);color:var(--blue)}
+.tag.lk{background:var(--line);color:var(--mut)}
+.qa{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 1.25rem}
+.chip{border:1px solid var(--line);background:var(--surf);border-radius:99px;padding:.35rem .85rem;font-size:.88rem}
+.chip:hover{border-color:var(--g);color:var(--g)}
+/* upload panel */
+.upbox{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:1rem 1.25rem;margin:1rem 0}
+.upgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.75rem;margin:.75rem 0}
+.upbox label{display:block;font-size:.82rem;font-weight:600}
+.upbox input,.upbox select{width:100%;margin-top:.25rem;padding:.5rem .65rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-weight:400}
+/* chat */
+.chat{display:flex;flex-direction:column;height:calc(100vh - 110px)}
+.msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:1rem;padding:.5rem 0 1rem}
+.m{max-width:760px;border-radius:12px;padding:.8rem 1rem}
+.m.u{align-self:flex-end;background:var(--g);color:#fff}
+.m.a{background:var(--surf);border:1px solid var(--line)}
+.m.a p{margin:.2rem 0 .6rem}
+.src{margin-top:.6rem;border-top:1px dashed var(--line);padding-top:.6rem;display:flex;flex-direction:column;gap:.4rem}
+.sc{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;padding:.45rem .7rem;background:var(--bg);text-align:left;font-size:.85rem}
+.sc:hover{border-color:var(--g)}
+.warn{background:var(--redl);border:1px solid var(--red);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;font-size:.92rem}
+.info{background:var(--goldl);border:1px solid var(--gold);border-radius:8px;padding:.6rem .8rem;margin:.4rem 0;font-size:.92rem}
+.fb{display:flex;gap:.4rem;margin-top:.6rem;align-items:center;font-size:.8rem;color:var(--mut)}
+.fb button{border:1px solid var(--line);background:transparent;border-radius:6px;padding:.1rem .5rem}
+.fb button[aria-pressed="true"]{background:var(--gl);border-color:var(--g)}
+.composer{display:flex;gap:.5rem;padding-top:.5rem}
+.composer input{flex:1;padding:.8rem 1rem;border:1px solid var(--line);border-radius:10px;background:var(--surf)}
+.composer .mic{border:1px solid var(--line);background:var(--surf);border-radius:10px;width:46px}
+.mic.on{background:var(--red);color:#fff}
+.disc{font-size:.78rem;color:var(--mut);margin-top:.4rem}
+/* drawer */
+#drawer{position:fixed;inset:0 0 0 auto;width:min(480px,100%);background:var(--surf);border-left:1px solid var(--line);box-shadow:-8px 0 30px rgba(0,0,0,.15);transform:translateX(105%);transition:transform .25s;padding:1.25rem;padding-top:calc(1.25rem + env(safe-area-inset-top,0px));overflow-y:auto;z-index:20}
+#drawer.open{transform:none}
+#drawer dl{display:grid;grid-template-columns:110px 1fr;gap:.4rem .8rem;font-size:.9rem;margin:1rem 0}
+#drawer dt{color:var(--mut)}#drawer dd{margin:0}
+.excerpt{border-left:3px solid var(--g);padding:.45rem .8rem;background:var(--bg);font-size:.88rem;margin:.55rem 0;border-radius:0 8px 8px 0}
+.excerpt b{display:block;font-size:.84rem;margin-bottom:.2rem}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:8px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
+#toast.show{opacity:1}
+.stats{display:flex;gap:1.5rem;color:var(--mut);font-size:.9rem;flex-wrap:wrap;margin-top:.35rem}
+@media(max-width:760px){.layout{grid-template-columns:1fr}nav.side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}nav.side h3{display:none}.hero h1{font-size:1.8rem}.chat{height:calc(100vh - 180px)}}
+@media(prefers-reduced-motion:reduce){#drawer{transition:none}}
+</style>
+</head>
+<body>
+<div class="sa" aria-hidden="true"></div>
+
+<section id="login">
+  <div class="brand"><span class="logo" aria-hidden="true">G</span>GovGuide AI</div>
+  <div class="hero">
+    <h1>Find, understand and verify government knowledge.</h1>
+    <p>Ask questions in plain language and get answers from approved legislation, policies and circulars, each with its source, version and status.</p>
+  </div>
+  <div id="fileWarn" class="warn" style="display:none"><b>Opened directly as a file.</b> To use the AI chat and document uploads, run the GovGuide server (<code>start-govguide.bat</code>) and open <code>http://localhost:3000</code>.</div>
+  <div class="notice"><b>Prototype.</b> Employee records are simulated. In production, GovGuide AI checks your email and employee number against your department’s HR system or the government identity provider, and takes your name, post and access level from there. You can’t type or edit them.</div>
+  <div class="auth"><div id="authbox"></div><div class="demo"><b>Demo records</b><br>Sign in: thandi.mokoena@labour.gov.za, 11204567, password govguide<br>Register: sipho.dlamini@labour.gov.za, 11208890<br>Register: lerato.naidoo@treasury.gov.za, 22013345<br>Not employed: any other details, for example name@gmail.com<br><br><b>Server status:</b> <span id="loginHealth">Checking backend…</span></div></div>
+  <h2 style="font-size:1.2rem;margin:2rem 0 .8rem">Public legislation GovGuide reads from</h2>
+  <div class="pub" id="pub"></div>
+  <div class="how">
+    <div><b>Grounded answers</b>Every answer cites the document, section, version and status.</div>
+    <div><b>Honest about gaps</b>If the documents don’t answer it, GovGuide says so and points you to the responsible office.</div>
+    <div><b>Role-based access</b>You only see documents your verified role is cleared for.</div>
+  </div>
+</section>
+
+<div id="app">
+  <header class="top">
+    <span class="brand"><span class="logo" aria-hidden="true">G</span>GovGuide AI</span>
+    <span id="connPill" class="status-pill">Checking…</span>
+    <span class="sp"></span>
+    <div class="tools" role="group" aria-label="Accessibility">
+      <button id="tA-" aria-label="Smaller text">A−</button>
+      <button id="tA+" aria-label="Larger text">A+</button>
+      <button id="tHC" aria-pressed="false">High contrast</button>
+    </div>
+    <div class="who" id="who"></div>
+    <button class="btn ghost" id="out">Sign out</button>
+  </header>
+  <div class="layout">
+    <nav class="side" id="side" aria-label="Main"></nav>
+    <main id="main"></main>
+  </div>
+</div>
+
+<aside id="drawer" aria-label="Document details" aria-hidden="true"></aside>
+<div id="toast" role="status"></div>
+
+<script>
+const USERS=[
+ {id:1,name:"Thandi Mokoena",title:"Director: Labour Policy",dept:"Employment and Labour",unit:"Labour Policy and Industrial Relations",lvl:3,lvlName:"Confidential"},
+ {id:2,name:"Sipho Dlamini",title:"Administrative Officer",dept:"Employment and Labour",unit:"Corporate Services",lvl:1,lvlName:"Public"},
+ {id:3,name:"Lerato Naidoo",title:"Chief Director: Supply Chain Management",dept:"National Treasury",unit:"Office of the Chief Procurement Officer",lvl:3,lvlName:"Confidential"}
+];
+const PUB_LIST=[
+ {title:"Basic Conditions of Employment Act 75 of 1997",src:"gov.za (official government source)",url:"https://www.gov.za/documents/basic-conditions-employment-act"},
+ {title:"Labour Relations Act 66 of 1995",src:"gov.za (official government source)",url:"https://www.gov.za/documents/labour-relations-act"},
+ {title:"Employment Equity Act 55 of 1998",src:"gov.za (official government source)",url:"https://www.gov.za/documents/employment-equity-act"},
+ {title:"Public Finance Management Act 1 of 1999",src:"treasury.gov.za (National Treasury)",url:"https://www.treasury.gov.za/legislation/pfma/default.aspx"},
+ {title:"Treasury Regulations for Departments",src:"treasury.gov.za (National Treasury)",url:"https://www.treasury.gov.za/legislation/pfma/default.aspx"}
+];
+const CATS=["All","Legislation","Regulations","Departmental policies","Circulars","Guidelines"];
+let U=null,DOCS=[],healthInfo=null,view="dash",cat="All",q="",showUpload=false,hc=false,fs=16,msgs=[];
+const $=s=>document.querySelector(s);
+const E=t=>String(t||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const doc=id=>DOCS.find(d=>d.id===id);
+const ST={cur:["Current","cur"],sup:["Superseded","sup"],dra:["Draft","dra"],rev:["Under review","rev"]};
+const stTag=d=>`<span class="tag ${ST[d.st][1]}">${ST[d.st][0]}</span>`;
+const allowed=d=>d.allowed!==undefined?d.allowed:(d.dept===U.dept&&d.cls<=U.lvl);
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2800)}
+
+if(window.location.protocol==="file:"){$("#fileWarn").style.display="block";}
+
+async function checkHealth(){
+ const lh=$("#loginHealth"),cp=$("#connPill");
+ if(window.location.protocol==="file:"){
+  if(lh)lh.textContent="Offline (opened as file:// instead of http://localhost:3000)";
+  if(cp){cp.textContent="Server offline";cp.className="status-pill bad";}
+  return;
+ }
+ try{
+  const r=await fetch("/api/health");
+  const d=await r.json();
+  healthInfo=d;
+  if(d.geminiConfigured){
+   if(lh)lh.textContent=`Connected · Gemini (${d.model}) · ${d.knowledgeDocuments} documents`;
+   if(cp){cp.textContent=`Gemini connected (${d.model})`;cp.className="status-pill ok";}
+  }else{
+   if(lh)lh.textContent=`Server running (Local Grounded Mode — add GEMINI_API_KEY in .env for live Gemini) · ${d.knowledgeDocuments} documents`;
+   if(cp){cp.textContent="Local Grounded Mode";cp.className="status-pill local";}
+  }
+ }catch{
+  if(lh)lh.textContent="Backend unreachable — start the server with start-govguide.bat";
+  if(cp){cp.textContent="Server offline";cp.className="status-pill bad";}
+ }
+}
+
+/* Simulated government employee registry (production: HR / identity provider) */
+const REG=[{emp:"11204567",email:"thandi.mokoena@labour.gov.za",uid:1},{emp:"11208890",email:"sipho.dlamini@labour.gov.za",uid:2},{emp:"22013345",email:"lerato.naidoo@treasury.gov.za",uid:3}];
+const ACC={"thandi.mokoena@labour.gov.za":"govguide"};
+const NOT_EMP="<b>You’re not employed by the government.</b> We couldn’t find these details in the government employee records, so you can’t use GovGuide AI. It is for current government employees only. If you think this is a mistake, contact your department’s HR office.";
+let tab="in";
+function authUI(){
+ const up=tab==="up";
+ $("#authbox").innerHTML=`<div class="tabs" role="tablist"><button role="tab" aria-selected="${!up}" data-t="in">Sign in</button><button role="tab" aria-selected="${up}" data-t="up">Register</button></div><form id="af" novalidate><label>Government email<input id="ae" type="email" autocomplete="username" placeholder="name@department.gov.za"></label><label>Employee (PERSAL) number<input id="an" inputmode="numeric" placeholder="8 digits"></label><label>${up?"Create password (8+ characters)":"Password"}<input id="ap" type="password" autocomplete="${up?"new-password":"current-password"}"></label><div id="aerr" role="alert"></div><button class="btn" type="submit" style="width:100%">${up?"Verify and register":"Sign in"}</button></form>`;
+ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;authUI()});
+ const err=t=>{$("#aerr").innerHTML=`<div class="warn">${t}</div>`};
+ $("#af").onsubmit=e=>{e.preventDefault();
+  const em=$("#ae").value.trim().toLowerCase(),no=$("#an").value.trim(),pw=$("#ap").value;
+  if(!em||!no||!pw)return err("Fill in your email, employee number and password.");
+  const rec=REG.find(r=>r.email===em&&r.emp===no);
+  if(!rec)return err(NOT_EMP);
+  const u=USERS.find(x=>x.id===rec.uid);
+  if(up){if(ACC[em])return err("You already have an account. Choose Sign in.");if(pw.length<8)return err("Your password must be at least 8 characters.");ACC[em]=pw;return verified(u)}
+  if(!ACC[em])return err("Your employment is verified, but you haven’t registered yet. Choose Register.");
+  if(ACC[em]!==pw)return err("Incorrect password. Try again.");
+  login(u.id)};
+}
+function verified(u){
+ $("#authbox").innerHTML=`<h2 style="font-size:1.25rem">Employment verified</h2><p style="color:var(--mut);margin:.3rem 0">These details come from the employee records. You can’t edit them.</p><dl><dt>Name</dt><dd>${u.name}</dd><dt>Department</dt><dd>${u.dept}</dd><dt>Unit</dt><dd>${u.unit}</dd><dt>Job title</dt><dd>${u.title}</dd><dt>Access level</dt><dd>${u.lvlName}</dd></dl><button class="btn" id="go" style="width:100%">Continue to my knowledge base</button>`;
+ $("#go").onclick=()=>login(u.id);
+}
+authUI();
+$("#pub").innerHTML=PUB_LIST.map(d=>`<a href="${d.url}" target="_blank" rel="noopener">${d.title}<small>${d.src}</small></a>`).join("");
+checkHealth();
+
+async function fetchDocs(){
+ try{
+  const r=await fetch(`/api/docs?userId=${encodeURIComponent(U.id)}`);
+  const d=await r.json();
+  if(r.ok&&Array.isArray(d.docs)){DOCS=d.docs;return true;}
+ }catch{}
+ return false;
+}
+
+async function login(id){
+ U=USERS.find(u=>u.id===id);msgs=[];view="dash";cat="All";q="";showUpload=false;
+ $("#login").style.display="none";$("#app").style.display="block";
+ $("#who").innerHTML=`<b>${U.name}</b><br><span>${U.title} · ${U.dept} (${U.lvlName})</span>`;
+ await checkHealth();
+ await fetchDocs();
+ render();
+ window.scrollTo(0,0);
+}
+$("#out").onclick=()=>{U=null;DOCS=[];tab="in";authUI();$("#app").style.display="none";$("#login").style.display="block";closeDrawer();checkHealth()};
+
+/* accessibility */
+function setFs(n){fs=Math.min(22,Math.max(13,n));document.documentElement.style.setProperty("--fs",fs+"px")}
+$("#tA-").onclick=()=>setFs(fs-1);$("#tA+").onclick=()=>setFs(fs+1);
+$("#tHC").onclick=e=>{hc=!hc;e.target.setAttribute("aria-pressed",hc);hc?document.documentElement.setAttribute("data-contrast","hi"):document.documentElement.removeAttribute("data-contrast")};
+
+function render(){
+ $("#side").innerHTML=`<button data-v="dash" aria-current="${view==="dash"}">Knowledge library</button><button data-v="chat" aria-current="${view==="chat"}">Ask GovGuide</button><h3>Categories</h3>`+
+  CATS.map(c=>`<button data-c="${c}" aria-current="${view==="dash"&&cat===c}"><span>${c}</span><span>${c==="All"?DOCS.length:DOCS.filter(d=>d.cat===c).length}</span></button>`).join("");
+ document.querySelectorAll("#side [data-v]").forEach(b=>b.onclick=()=>{view=b.dataset.v;render()});
+ document.querySelectorAll("#side [data-c]").forEach(b=>b.onclick=()=>{view="dash";cat=b.dataset.c;render()});
+ view==="dash"?dash():chat();
+}
+
+function dash(){
+ const list=DOCS.filter(d=>(cat==="All"||d.cat===cat)&&(!q||(d.title+(d.sum||"")+d.cat+d.owner).toLowerCase().includes(q.toLowerCase())));
+ const lvlOpts=[1,2,3].filter(l=>l<=U.lvl).map(l=>`<option value="${l}">${["","Public","Internal","Confidential"][l]}</option>`).join("");
+ $("#main").innerHTML=`<div class="headrow"><div><h1 style="font-size:1.7rem">${U.dept}</h1>
+ <div class="stats"><span>${DOCS.length} documents in your department</span><span>${DOCS.filter(allowed).length} you can open</span><span>${DOCS.filter(d=>d.st==="sup").length} superseded</span></div></div>
+ <button class="btn sm" id="upBtn">${showUpload?"Close upload":"+ Upload policy / PDF / Word"}</button></div>
+ ${showUpload?`<form class="upbox" id="upForm">
+  <b>Upload a document to ${E(U.dept)}</b>
+  <div class="upgrid">
+    <label>File (.pdf, .docx, .txt, .md)<input id="upFile" type="file" accept=".pdf,.docx,.txt,.md" required></label>
+    <label>Title (optional)<input id="upTitle" placeholder="Defaults to filename"></label>
+    <label>Category<select id="upCat">${CATS.filter(c=>c!=="All").map(c=>`<option>${c}</option>`).join("")}</select></label>
+    <label>Status<select id="upSt"><option value="cur">Current</option><option value="dra">Draft</option><option value="rev">Under review</option><option value="sup">Superseded</option></select></label>
+    <label>Clearance level<select id="upCls">${lvlOpts}</select></label>
+    <label>Version<input id="upVer" value="1.0"></label>
+  </div>
+  <div id="upErr"></div>
+  <button class="btn sm" type="submit" id="upSubmit">Process & add to knowledge base</button>
+ </form>`:""}
+ <div class="search"><input id="sq" type="search" placeholder="Search your authorised documents" aria-label="Search documents" value="${E(q)}"><button class="btn" id="sb">Search</button></div>
+ <div class="dl">${list.map(d=>`<button class="doc ${allowed(d)?"":"lock"}" data-d="${E(d.id)}"><span class="t"><b>${E(d.title)}</b><small>${E(d.cat)} · Owner: ${E(d.owner)} · v${E(d.ver)}${d.url?" · Public document":""}${d.uploaded?" · Uploaded":""}</small></span>${allowed(d)?"":'<span class="tag lk">Restricted</span>'}${stTag(d)}</button>`).join("")||"<p>No documents match. Try different words, or ask GovGuide, which also searches inside document sections.</p>"}</div>`;
+
+ $("#upBtn").onclick=()=>{showUpload=!showUpload;render()};
+ if(showUpload){
+  $("#upForm").onsubmit=async e=>{
+   e.preventDefault();
+   const file=$("#upFile").files[0];
+   if(!file)return;
+   const btn=$("#upSubmit");btn.disabled=true;btn.textContent="Extracting text…";
+   $("#upErr").innerHTML="";
+   const fd=new FormData();
+   fd.append("file",file);
+   fd.append("userId",U.id);
+   fd.append("title",$("#upTitle").value.trim());
+   fd.append("cat",$("#upCat").value);
+   fd.append("st",$("#upSt").value);
+   fd.append("cls",$("#upCls").value);
+   fd.append("ver",$("#upVer").value.trim()||"1.0");
+   try{
+    const r=await fetch("/api/upload",{method:"POST",body:fd});
+    const res=await r.json();
+    if(!r.ok)throw new Error(res.error||"Upload failed.");
+    showUpload=false;
+    await fetchDocs();
+    await checkHealth();
+    toast(`Added "${res.doc.title}" (${res.sectionCount} searchable sections).`);
+    render();
+   }catch(err){
+    $("#upErr").innerHTML=`<div class="warn">${E(err.message)}</div>`;
+    btn.disabled=false;btn.textContent="Process & add to knowledge base";
+   }
+  };
+ }
+ const go=()=>{q=$("#sq").value;render();$("#sq")&&$("#sq").focus()};
+ $("#sb").onclick=go;$("#sq").onkeydown=e=>{if(e.key==="Enter")go()};
+ document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>openDoc(b.dataset.d));
+}
+
+function chat(){
+ $("#main").innerHTML=`<div class="chat"><div class="msgs" id="msgs" aria-live="polite"></div>
+ <div class="qa" id="qa"></div>
+ <form class="composer" id="cf"><button type="button" class="mic" id="mic" aria-label="Use voice input">🎤</button><input id="ci" placeholder="Ask about legislation, policy or procedure" aria-label="Your question" autocomplete="off"><button class="btn" type="submit">Ask</button></form>
+ <div class="disc">${healthInfo?.geminiConfigured?`Gemini-powered (${E(healthInfo.model)})`:"Local Grounded Mode (add GEMINI_API_KEY to .env for live Gemini)"} · Answers are grounded in your authorised knowledge base. Always verify the cited source.</div></div>`;
+ const ex=U.dept==="National Treasury"
+  ?["Which legislation governs public financial management?","What do Treasury Regulations say about paying creditors within 30 days?","What is required for a Bid Evaluation Committee?","What are the requirements for approving a departmental project?"]
+  :["What are the overtime rules?","Is Overtime Circular 4 of 2019 still valid?","What does the policy say about beneficiary selection?","What does the draft remote work policy say?","What are the requirements for approving a departmental project?"];
+ $("#qa").innerHTML=msgs.length?"":ex.map(e=>`<button class="chip" type="button">${e}</button>`).join("");
+ document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>ask(c.textContent));
+ $("#cf").onsubmit=e=>{e.preventDefault();const v=$("#ci").value.trim();if(v){$("#ci").value="";ask(v)}};
+ $("#mic").onclick=voice;
+ if(!msgs.length)msgs.push({r:"a",html:`<p>Hello ${U.name.split(" ")[0]}. Ask me about documents in the <b>${U.dept}</b> knowledge base. I’ll cite the source, section, version and status, and tell you when I don’t know.</p>`,docs:[]});
+ paint();
+}
+function paint(){
+ const el=$("#msgs");if(!el)return;
+ el.innerHTML=msgs.map((m,i)=>m.r==="u"?`<div class="m u">${E(m.t)}</div>`:`<div class="m a">${m.html}${m.docs&&m.docs.length?`<div class="src"><b style="font-size:.82rem">Sources</b>${m.docs.map(([id,sec])=>{const d=doc(id);if(!d)return"";return`<button class="sc" data-d="${E(id)}"><b>${E(d.title)}</b><span>${E(sec)}</span><span>v${E(d.ver)}</span>${stTag(d)}</button>`}).join("")}</div>`:""}${i>0&&!m.loading?`<div class="fb">Was this helpful? <button aria-label="Helpful" data-f="1">👍</button><button aria-label="Not helpful" data-f="0">👎</button></div>`:""}</div>`).join("");
+ el.querySelectorAll(".sc").forEach(b=>b.onclick=()=>openDoc(b.dataset.d));
+ el.querySelectorAll(".fb button").forEach(b=>b.onclick=()=>{b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");toast("Thanks. Feedback goes to the knowledge team.")});
+ el.scrollTop=el.scrollHeight;
+}
+async function ask(t){
+  msgs.push({r:"u",t});
+  const qa=$("#qa");if(qa)qa.innerHTML="";
+  paint();
+
+  const loading={r:"a",html:"<p>Searching your authorised documents…</p>",docs:[],loading:true};
+  msgs.push(loading);paint();
+
+  try{
+    if(window.location.protocol==="file:"){
+      throw new Error("This page was opened directly from disk (file://). Start start-govguide.bat and open http://localhost:3000.");
+    }
+    const history=msgs.slice(0,-1).slice(-10).map(m=>({
+      role:m.r==="u"?"user":"assistant",
+      text:m.r==="u"?m.t:(m.plain||"")
+    })).filter(m=>m.text);
+    const response=await fetch("/api/chat",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({userId:U.id,question:t,history})
+    });
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||"The AI service could not complete your request.");
+    const safeText=E(data.answer||"I couldn’t generate a reliable answer.").replace(/\n/g,"<br>");
+    const modeNote=data.mode==="local-fallback"
+      ?"Grounded local retrieval response (no GEMINI_API_KEY set in .env). Verify the cited source before acting."
+      :"AI-generated response grounded in your authorised knowledge base. Verify the cited source before acting.";
+    const result={
+      r:"a",
+      plain:data.answer||"",
+      html:(data.unknown?'<div class="info"><b>Insufficient evidence or restricted access.</b> </div>':"")+`<p>${safeText}</p>`+
+        (data.referral?`<p><b>Suggested referral:</b> ${E(data.referral)}</p>`:"")+
+        `<p class="disc">${modeNote}</p>`,
+      docs:(data.sources||[]).map(s=>[s.id,s.section||"Relevant source document"]),
+      unknown:!!data.unknown
+    };
+    msgs[msgs.length-1]=result;
+  }catch(err){
+    msgs[msgs.length-1]={
+      r:"a",
+      html:`<div class="warn"><b>Unable to reach GovGuide AI.</b><p>${E(err.message||"Please check that the GovGuide server is running at http://localhost:3000.")}</p></div>`,
+      docs:[]
+    };
+  }
+  paint();
+}
+function voice(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){toast("Voice input isn’t supported in this browser. Type your question instead.");return}
+ try{const r=new SR();r.lang="en-ZA";const b=$("#mic");b.classList.add("on");
+  r.onresult=e=>{$("#ci").value=e.results[0][0].transcript};
+  r.onend=()=>b.classList.remove("on");r.onerror=()=>{b.classList.remove("on");toast("Couldn’t hear you. Check microphone permission.")};r.start()}
+ catch(e){toast("Voice input is unavailable here.")}
+}
+function openDoc(id){
+ const d=doc(id);if(!d)return;
+ const ok=allowed(d),dr=$("#drawer");
+ const rep=d.rep?doc(d.rep):null;
+ const secs=(ok&&d.sections&&d.sections.length)?d.sections.map(s=>`<div class="excerpt"><b>${E(s.sec)}</b>${E(s.text)}</div>`).join(""):"";
+ dr.innerHTML=`<button class="btn ghost" id="cl">Close</button><h2 style="margin-top:1rem;font-size:1.3rem">${E(d.title)}</h2><p style="margin:.5rem 0">${stTag(d)}</p>
+ ${ok?`<p>${E(d.sum)}</p>`:`<div class="warn"><b>Restricted.</b> This document is classified above your verified access level. Contents and summaries are hidden.</div>`}
+ ${d.st==="sup"&&rep?`<div class="warn"><b>This document has been replaced.</b> Use <a href="#" id="rl">${E(rep.title)}</a> (v${E(rep.ver)}, current).</div>`:""}
+ ${d.st==="dra"?`<div class="info">Draft only. Not approved or in force.</div>`:""}${d.st==="rev"?`<div class="info">Under review. Confirm with the owner before relying on it.</div>`:""}
+ <dl><dt>Type</dt><dd>${E(d.cat)}</dd><dt>Owner</dt><dd>${E(d.owner)}</dd><dt>Version</dt><dd>${E(d.ver)}</dd><dt>Date</dt><dd>${E(d.date)}</dd><dt>Classification</dt><dd>${["","Public","Internal","Confidential"][d.cls]}</dd><dt>Source</dt><dd>${E(d.src)}</dd></dl>${d.url&&ok?`<p><a href="${E(d.url)}" target="_blank" rel="noopener">Open the official public document</a></p>`:""}${d.url||d.uploaded?"":`<p style="color:var(--mut);font-size:.85rem">Simulated internal document for the demo.</p>`}
+ ${secs?`<h3 style="font-size:1rem;margin:.8rem 0 .4rem">Document sections</h3>${secs}`:""}
+ <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap">
+ ${ok?`<button class="btn" id="ask">Ask about this document</button>`:`<button class="btn" id="req">Request access</button>`}
+ ${ok&&d.uploaded?`<button class="btn ghost" id="delDoc">Remove upload</button>`:""}
+ </div>`;
+ dr.classList.add("open");dr.setAttribute("aria-hidden","false");
+ $("#cl").onclick=closeDrawer;$("#cl").focus();
+ const rl=$("#rl");if(rl)rl.onclick=e=>{e.preventDefault();openDoc(rep.id)};
+ const a=$("#ask");if(a)a.onclick=()=>{closeDrawer();view="chat";render();ask("Summarise: "+d.title+". Is it current?")};
+ const rq=$("#req");if(rq)rq.onclick=()=>{toast("Request sent to "+d.owner+" (simulated).");closeDrawer()};
+ const del=$("#delDoc");
+ if(del)del.onclick=async()=>{
+  try{
+   const r=await fetch(`/api/upload/${encodeURIComponent(d.id)}?userId=${encodeURIComponent(U.id)}`,{method:"DELETE"});
+   if(!r.ok)throw new Error("Delete failed");
+   closeDrawer();await fetchDocs();await checkHealth();render();toast("Uploaded document removed.");
+  }catch{toast("Could not remove document.")}
+ };
+}
+function closeDrawer(){const d=$("#drawer");d.classList.remove("open");d.setAttribute("aria-hidden","true")}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
+</script>
+</body>
+</html>
