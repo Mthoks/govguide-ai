@@ -9,7 +9,7 @@ echo.
 
 where node >nul 2>nul
 if errorlevel 1 (
-  echo [ERROR] Node.js 22+ is not installed or not in PATH.
+  echo [ERROR] Node.js 22.13+ is not installed or not in PATH.
   echo Download it from https://nodejs.org/
   pause
   exit /b 1
