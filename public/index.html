@@ -26,34 +26,45 @@ button{cursor:pointer}
 .btn.sm{padding:.4rem .8rem;font-size:.88rem}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 /* login */
-#login{max-width:960px;margin:0 auto;padding:2.5rem 1.25rem}
+#login{padding:2rem 1.25rem}
+.login-wrap{min-height:calc(100vh - 4rem - 6px);display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:420px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:.6rem;font-family:"Source Serif 4",serif;font-weight:600;font-size:1.3rem}
+.login-brand{justify-content:center;margin-bottom:1.5rem;font-size:1.45rem}
 .logo{width:34px;height:34px;border-radius:9px;background:var(--g);color:#fff;display:grid;place-items:center;font-size:1rem}
-.hero{margin:2.5rem 0 1.5rem;max-width:640px}
-.hero h1{font-size:2.3rem}
-.hero p{color:var(--mut);font-size:1.05rem}
-.notice{background:var(--goldl);border:1px solid var(--gold);border-radius:10px;padding:.7rem 1rem;font-size:.9rem;margin-bottom:1.25rem}
-.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2rem;color:var(--mut);font-size:.92rem}
-.how b{color:var(--ink);display:block}
-.auth{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:1.5rem;align-items:start}
-.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:1rem}
-.tabs button{flex:1;border:0;background:transparent;padding:.7rem;font-weight:600;color:var(--mut);border-bottom:3px solid transparent}
+.auth{width:100%}
+.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:1.25rem}
+.tabs button{flex:1;border:0;background:transparent;padding:.75rem;font-weight:600;color:var(--mut);border-bottom:3px solid transparent}
 .tabs [aria-selected="true"]{color:var(--g);border-bottom-color:var(--g)}
-#authbox{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:1.25rem}
-#authbox label{display:block;font-size:.88rem;font-weight:600;margin-bottom:.8rem}
-#authbox input{display:block;width:100%;margin-top:.3rem;padding:.65rem .8rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-weight:400}
+#authbox{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:1.6rem;box-shadow:0 12px 32px rgba(0,0,0,.1)}
+#authbox label{display:block;font-size:.88rem;font-weight:600;margin-bottom:.9rem}
+#authbox input{display:block;width:100%;margin-top:.35rem;padding:.7rem .85rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-weight:400}
 #authbox dl{display:grid;grid-template-columns:100px 1fr;gap:.35rem .8rem;font-size:.92rem;margin:1rem 0}#authbox dt{color:var(--mut)}#authbox dd{margin:0}
-.demo{font-size:.85rem;color:var(--mut);background:var(--surf);border:1px dashed var(--line);border-radius:12px;padding:1rem;line-height:1.7;overflow-wrap:anywhere}
-.pub{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.75rem}
-.pub a{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem;color:var(--ink);text-decoration:none;font-weight:600}
-.pub a:hover{border-color:var(--g)}.pub small{display:block;font-weight:400;color:var(--mut)}
-@media(max-width:760px){.auth{grid-template-columns:1fr}}
 /* app */
 #app{display:none;min-height:100vh}
-header.top{display:flex;align-items:center;gap:.75rem;padding:.7rem 1.25rem;background:var(--surf);border-bottom:1px solid var(--line);flex-wrap:wrap}
+header.top{display:flex;align-items:center;gap:.65rem;padding:.65rem 1.25rem;background:var(--surf);border-bottom:1px solid var(--line);flex-wrap:wrap}
 .top .sp{flex:1}
-.who{font-size:.85rem;text-align:right;line-height:1.3}
-.who span{color:var(--mut)}
+.profile-wrap{position:relative;display:flex;align-items:center}
+.profile-btn{display:flex;align-items:center;gap:.55rem;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:.25rem .7rem .25rem .28rem;text-align:left;max-width:100%;transition:border-color .15s}
+.profile-btn:hover,.profile-btn[aria-expanded="true"]{border-color:var(--g)}
+.avatar{width:30px;height:30px;border-radius:50%;background:var(--gd);color:#fff;display:grid;place-items:center;font-size:.78rem;font-weight:600;flex-shrink:0;letter-spacing:.02em;border:1px solid rgba(255,255,255,.12)}
+.who{font-size:.86rem;line-height:1.2;min-width:0;display:flex;align-items:center}
+.who-name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.lvl-pill{font-size:.68rem;font-weight:600;border-radius:99px;padding:.05rem .45rem;background:var(--gl);color:var(--g);white-space:nowrap}
+.lvl-pill.l1{background:var(--bluel);color:var(--blue)}
+.lvl-pill.l2{background:var(--goldl);color:var(--gold)}
+.lvl-pill.l3{background:var(--gl);color:var(--g)}
+.chev{color:var(--mut);font-size:.72rem;margin-left:.1rem;flex-shrink:0}
+.profile-card{position:absolute;top:calc(100% + .45rem);right:0;width:min(340px,calc(100vw - 1.5rem));background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:1rem;box-shadow:0 14px 36px rgba(0,0,0,.22);z-index:25;display:none}
+.profile-card.open{display:block}
+.profile-card-head{display:flex;align-items:center;gap:.75rem;padding-bottom:.8rem;border-bottom:1px solid var(--line)}
+.profile-card-head .avatar{width:42px;height:42px;font-size:.95rem}
+.profile-card-head h3{font-size:1.05rem;font-family:"Public Sans",sans-serif;font-weight:600}
+.profile-card-head small{color:var(--mut);display:block;font-size:.8rem}
+.profile-card dl{display:grid;grid-template-columns:96px 1fr;gap:.38rem .65rem;font-size:.84rem;margin:.8rem 0}
+.profile-card dt{color:var(--mut)}
+.profile-card dd{margin:0;word-break:break-word}
+.profile-note{font-size:.76rem;color:var(--mut);margin:0 0 .75rem}
+.profile-actions{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding-top:.65rem;border-top:1px solid var(--line)}
 .status-pill{font-size:.78rem;font-weight:600;border-radius:99px;padding:.2rem .65rem;border:1px solid var(--line);background:var(--bg);color:var(--mut)}
 .status-pill.ok{background:var(--gl);border-color:var(--g);color:var(--g)}
 .status-pill.local{background:var(--goldl);border-color:var(--gold);color:var(--gold)}
@@ -121,7 +132,7 @@ main{padding:1.5rem;max-width:980px;width:100%}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.6rem 1rem;border-radius:8px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
 #toast.show{opacity:1}
 .stats{display:flex;gap:1.5rem;color:var(--mut);font-size:.9rem;flex-wrap:wrap;margin-top:.35rem}
-@media(max-width:760px){.layout{grid-template-columns:1fr}nav.side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}nav.side h3{display:none}.hero h1{font-size:1.8rem}.chat{height:calc(100vh - 180px)}}
+@media(max-width:760px){.layout{grid-template-columns:1fr}nav.side{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}nav.side h3{display:none}.hero h1{font-size:1.8rem}.chat{height:calc(100vh - 180px)}.who-name{max-width:130px}}
 @media(prefers-reduced-motion:reduce){#drawer{transition:none}}
 </style>
 </head>
@@ -129,20 +140,10 @@ main{padding:1.5rem;max-width:980px;width:100%}
 <div class="sa" aria-hidden="true"></div>
 
 <section id="login">
-  <div class="brand"><span class="logo" aria-hidden="true">G</span>GovGuide AI</div>
-  <div class="hero">
-    <h1>Find, understand and verify government knowledge.</h1>
-    <p>Ask questions in plain language and get answers from approved legislation, policies and circulars, each with its source, version and status.</p>
-  </div>
-  <div id="fileWarn" class="warn" style="display:none"><b>Opened directly as a file.</b> To use the AI chat and document uploads, run the GovGuide server (<code>start-govguide.bat</code>) and open <code>http://localhost:3000</code>.</div>
-  <div class="notice"><b>Prototype.</b> Employee records are simulated. In production, GovGuide AI checks your email and employee number against your department’s HR system or the government identity provider, and takes your name, post and access level from there. You can’t type or edit them.</div>
-  <div class="auth"><div id="authbox"></div><div class="demo"><b>Demo records</b><br>Sign in: thandi.mokoena@labour.gov.za, 11204567, password govguide<br>Register: sipho.dlamini@labour.gov.za, 11208890<br>Register: lerato.naidoo@treasury.gov.za, 22013345<br>Not employed: any other details, for example name@gmail.com<br><br><b>Server status:</b> <span id="loginHealth">Checking backend…</span></div></div>
-  <h2 style="font-size:1.2rem;margin:2rem 0 .8rem">Public legislation GovGuide reads from</h2>
-  <div class="pub" id="pub"></div>
-  <div class="how">
-    <div><b>Grounded answers</b>Every answer cites the document, section, version and status.</div>
-    <div><b>Honest about gaps</b>If the documents don’t answer it, GovGuide says so and points you to the responsible office.</div>
-    <div><b>Role-based access</b>You only see documents your verified role is cleared for.</div>
+  <div class="login-wrap">
+    <div class="brand login-brand"><span class="logo" aria-hidden="true">G</span>GovGuide AI</div>
+    <div id="fileWarn" class="warn" style="display:none;width:100%"><b>Opened directly as a file.</b> To use the AI chat and document uploads, run the GovGuide server (<code>start-govguide.bat</code>) and open <code>http://localhost:3000</code>.</div>
+    <div class="auth"><div id="authbox"></div></div>
   </div>
 </section>
 
@@ -156,8 +157,15 @@ main{padding:1.5rem;max-width:980px;width:100%}
       <button id="tA+" aria-label="Larger text">A+</button>
       <button id="tHC" aria-pressed="false">High contrast</button>
     </div>
-    <div class="who" id="who"></div>
-    <button class="btn ghost" id="out">Sign out</button>
+    <div class="profile-wrap" id="profileWrap">
+      <button type="button" class="profile-btn" id="profileBtn" aria-expanded="false" aria-haspopup="dialog" aria-controls="profileCard">
+        <span class="avatar" id="whoAvatar" aria-hidden="true"></span>
+        <span class="who" id="who"></span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
+      <div class="profile-card" id="profileCard" role="dialog" aria-label="Employee profile"></div>
+    </div>
+    <button class="btn ghost sm" id="out">Sign out</button>
   </header>
   <div class="layout">
     <nav class="side" id="side" aria-label="Main"></nav>
@@ -169,11 +177,6 @@ main{padding:1.5rem;max-width:980px;width:100%}
 <div id="toast" role="status"></div>
 
 <script>
-const USERS=[
- {id:1,name:"Thandi Mokoena",title:"Director: Labour Policy",dept:"Employment and Labour",unit:"Labour Policy and Industrial Relations",lvl:3,lvlName:"Confidential"},
- {id:2,name:"Sipho Dlamini",title:"Administrative Officer",dept:"Employment and Labour",unit:"Corporate Services",lvl:1,lvlName:"Public"},
- {id:3,name:"Lerato Naidoo",title:"Chief Director: Supply Chain Management",dept:"National Treasury",unit:"Office of the Chief Procurement Officer",lvl:3,lvlName:"Confidential"}
-];
 const PUB_LIST=[
  {title:"Basic Conditions of Employment Act 75 of 1997",src:"gov.za (official government source)",url:"https://www.gov.za/documents/basic-conditions-employment-act"},
  {title:"Labour Relations Act 66 of 1995",src:"gov.za (official government source)",url:"https://www.gov.za/documents/labour-relations-act"},
@@ -186,7 +189,7 @@ let U=null,DOCS=[],healthInfo=null,view="dash",cat="All",q="",showUpload=false,h
 const $=s=>document.querySelector(s);
 const E=t=>String(t||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const doc=id=>DOCS.find(d=>d.id===id);
-const ST={cur:["Current","cur"],sup:["Superseded","sup"],dra:["Draft","dra"],rev:["Under review","rev"]};
+const ST={cur:["Current","cur"],sup:["Superseded","sup"],dra:["Draft","dra"],rev:["Under review","rev"],restricted:["Restricted","lk"]};
 const stTag=d=>`<span class="tag ${ST[d.st][1]}">${ST[d.st][0]}</span>`;
 const allowed=d=>d.allowed!==undefined?d.allowed:(d.dept===U.dept&&d.cls<=U.lvl);
 function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2800)}
@@ -205,8 +208,8 @@ async function checkHealth(){
   const d=await r.json();
   healthInfo=d;
   if(d.geminiConfigured){
-   if(lh)lh.textContent=`Connected · Gemini (${d.model}) · ${d.knowledgeDocuments} documents`;
-   if(cp){cp.textContent=`Gemini connected (${d.model})`;cp.className="status-pill ok";}
+   if(lh)lh.textContent=`Configured · Gemini (${d.model}) · ${d.knowledgeDocuments} documents`;
+   if(cp){cp.textContent=`Gemini configured (${d.model})`;cp.className="status-pill ok";}
   }else{
    if(lh)lh.textContent=`Server running (Local Grounded Mode — add GEMINI_API_KEY in .env for live Gemini) · ${d.knowledgeDocuments} documents`;
    if(cp){cp.textContent="Local Grounded Mode";cp.className="status-pill local";}
@@ -217,58 +220,98 @@ async function checkHealth(){
  }
 }
 
-/* Simulated government employee registry (production: HR / identity provider) */
-const REG=[{emp:"11204567",email:"thandi.mokoena@labour.gov.za",uid:1},{emp:"11208890",email:"sipho.dlamini@labour.gov.za",uid:2},{emp:"22013345",email:"lerato.naidoo@treasury.gov.za",uid:3}];
-const ACC={"thandi.mokoena@labour.gov.za":"govguide"};
-const NOT_EMP="<b>You’re not employed by the government.</b> We couldn’t find these details in the government employee records, so you can’t use GovGuide AI. It is for current government employees only. If you think this is a mistake, contact your department’s HR office.";
 let tab="in";
 function authUI(){
  const up=tab==="up";
  $("#authbox").innerHTML=`<div class="tabs" role="tablist"><button role="tab" aria-selected="${!up}" data-t="in">Sign in</button><button role="tab" aria-selected="${up}" data-t="up">Register</button></div><form id="af" novalidate><label>Government email<input id="ae" type="email" autocomplete="username" placeholder="name@department.gov.za"></label><label>Employee (PERSAL) number<input id="an" inputmode="numeric" placeholder="8 digits"></label><label>${up?"Create password (8+ characters)":"Password"}<input id="ap" type="password" autocomplete="${up?"new-password":"current-password"}"></label><div id="aerr" role="alert"></div><button class="btn" type="submit" style="width:100%">${up?"Verify and register":"Sign in"}</button></form>`;
  document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;authUI()});
- const err=t=>{$("#aerr").innerHTML=`<div class="warn">${t}</div>`};
- $("#af").onsubmit=e=>{e.preventDefault();
-  const em=$("#ae").value.trim().toLowerCase(),no=$("#an").value.trim(),pw=$("#ap").value;
-  if(!em||!no||!pw)return err("Fill in your email, employee number and password.");
-  const rec=REG.find(r=>r.email===em&&r.emp===no);
-  if(!rec)return err(NOT_EMP);
-  const u=USERS.find(x=>x.id===rec.uid);
-  if(up){if(ACC[em])return err("You already have an account. Choose Sign in.");if(pw.length<8)return err("Your password must be at least 8 characters.");ACC[em]=pw;return verified(u)}
-  if(!ACC[em])return err("Your employment is verified, but you haven’t registered yet. Choose Register.");
-  if(ACC[em]!==pw)return err("Incorrect password. Try again.");
-  login(u.id)};
-}
-function verified(u){
- $("#authbox").innerHTML=`<h2 style="font-size:1.25rem">Employment verified</h2><p style="color:var(--mut);margin:.3rem 0">These details come from the employee records. You can’t edit them.</p><dl><dt>Name</dt><dd>${u.name}</dd><dt>Department</dt><dd>${u.dept}</dd><dt>Unit</dt><dd>${u.unit}</dd><dt>Job title</dt><dd>${u.title}</dd><dt>Access level</dt><dd>${u.lvlName}</dd></dl><button class="btn" id="go" style="width:100%">Continue to my knowledge base</button>`;
- $("#go").onclick=()=>login(u.id);
+ $("#af").onsubmit=async e=>{
+  e.preventDefault();
+  const button=$("#af button[type=submit]");
+  button.disabled=true;
+  $("#aerr").textContent="";
+  try{
+   const response=await fetch(`/api/auth/${up?"register":"login"}`,{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email:$("#ae").value.trim(),employeeNumber:$("#an").value.trim(),password:$("#ap").value})
+   });
+   const data=await response.json();
+   if(!response.ok)throw new Error(data.error||"Authentication failed.");
+   await login(data.user);
+  }catch(error){
+   $("#aerr").innerHTML=`<div class="warn">${E(error.message||"Could not authenticate.")}</div>`;
+   button.disabled=false;
+  }
+ };
 }
 authUI();
-$("#pub").innerHTML=PUB_LIST.map(d=>`<a href="${d.url}" target="_blank" rel="noopener">${d.title}<small>${d.src}</small></a>`).join("");
+const pubEl=$("#pub");if(pubEl)pubEl.innerHTML=PUB_LIST.map(d=>`<a href="${d.url}" target="_blank" rel="noopener">${d.title}<small>${d.src}</small></a>`).join("");
 checkHealth();
+fetch("/api/auth/session").then(async response=>{
+ if(response.ok){const data=await response.json();await login(data.user)}
+}).catch(()=>{});
 
 async function fetchDocs(){
  try{
-  const r=await fetch(`/api/docs?userId=${encodeURIComponent(U.id)}`);
+  const r=await fetch("/api/docs");
   const d=await r.json();
   if(r.ok&&Array.isArray(d.docs)){DOCS=d.docs;return true;}
  }catch{}
  return false;
 }
 
-async function login(id){
- U=USERS.find(u=>u.id===id);msgs=[];view="dash";cat="All";q="";showUpload=false;
+function initials(name){
+ return String(name||"").trim().split(/\s+/).filter(Boolean).slice(0,2).map(p=>p[0].toUpperCase()).join("")||"U";
+}
+function renderProfile(){
+ if(!U)return;
+ const ini=initials(U.name);
+ const lvlDesc=U.lvl===3?"Public, Internal & Confidential":U.lvl===2?"Public & Internal":"Public only";
+ const authCount=DOCS.filter(allowed).length;
+ $("#whoAvatar").textContent=ini;
+ $("#who").innerHTML=`<span class="who-name">${E(U.name)}</span>`;
+ $("#profileCard").innerHTML=`<div class="profile-card-head"><span class="avatar" aria-hidden="true">${E(ini)}</span><div><h3>${E(U.name)}</h3><small>${E(U.title)}</small></div></div>
+ <dl>
+  <dt>Department</dt><dd>${E(U.dept)}</dd>
+  <dt>Unit</dt><dd>${E(U.unit)}</dd>
+  <dt>Clearance</dt><dd><span class="lvl-pill l${U.lvl}">Level ${U.lvl} · ${E(U.lvlName)}</span></dd>
+  <dt>Access scope</dt><dd>${E(lvlDesc)}</dd>
+  <dt>Documents</dt><dd>${authCount} of ${DOCS.length} authorised</dd>
+ </dl>
+ <p class="profile-note">Verified from HR employee records (read-only).</p>
+ <div class="profile-actions"><button type="button" class="btn ghost sm" id="profClose">Close</button><button type="button" class="btn sm" id="profOut">Sign out</button></div>`;
+ $("#profClose").onclick=()=>toggleProfile(false);
+ $("#profOut").onclick=logout;
+}
+function toggleProfile(force){
+ const card=$("#profileCard"),btn=$("#profileBtn");
+ if(!card||!btn)return;
+ const open=typeof force==="boolean"?force:!card.classList.contains("open");
+ card.classList.toggle("open",open);
+ btn.setAttribute("aria-expanded",String(open));
+}
+async function login(user){
+ U=user;msgs=[];view="dash";cat="All";q="";showUpload=false;
  $("#login").style.display="none";$("#app").style.display="block";
- $("#who").innerHTML=`<b>${U.name}</b><br><span>${U.title} · ${U.dept} (${U.lvlName})</span>`;
+ toggleProfile(false);
+ renderProfile();
  await checkHealth();
  await fetchDocs();
+ renderProfile();
  render();
  window.scrollTo(0,0);
 }
-$("#out").onclick=()=>{U=null;DOCS=[];tab="in";authUI();$("#app").style.display="none";$("#login").style.display="block";closeDrawer();checkHealth()};
+async function logout(){
+ try{await fetch("/api/auth/logout",{method:"POST"})}catch{}
+ U=null;DOCS=[];tab="in";toggleProfile(false);authUI();$("#app").style.display="none";$("#login").style.display="block";closeDrawer();checkHealth();
+}
+$("#out").onclick=logout;
+$("#profileBtn").onclick=e=>{e.stopPropagation();toggleProfile()};
+document.addEventListener("click",e=>{if(!$("#profileWrap")?.contains(e.target))toggleProfile(false)});
 
 /* accessibility */
 function setFs(n){fs=Math.min(22,Math.max(13,n));document.documentElement.style.setProperty("--fs",fs+"px")}
-$("#tA-").onclick=()=>setFs(fs-1);$("#tA+").onclick=()=>setFs(fs+1);
+$("#tA-").onclick=()=>setFs(fs-1);document.getElementById("tA+").onclick=()=>setFs(fs+1);
 $("#tHC").onclick=e=>{hc=!hc;e.target.setAttribute("aria-pressed",hc);hc?document.documentElement.setAttribute("data-contrast","hi"):document.documentElement.removeAttribute("data-contrast")};
 
 function render(){
@@ -288,16 +331,34 @@ function dash(){
  ${showUpload?`<form class="upbox" id="upForm">
   <b>Upload a document to ${E(U.dept)}</b>
   <div class="upgrid">
-    <label>File (.pdf, .docx, .txt, .md)<input id="upFile" type="file" accept=".pdf,.docx,.txt,.md" required></label>
+    <label>File (PDF, Word, text, or scanned image)<input id="upFile" type="file" accept=".pdf,.docx,.txt,.md,.png,.jpg,.jpeg,.tif,.tiff" required></label>
     <label>Title (optional)<input id="upTitle" placeholder="Defaults to filename"></label>
     <label>Category<select id="upCat">${CATS.filter(c=>c!=="All").map(c=>`<option>${c}</option>`).join("")}</select></label>
-    <label>Status<select id="upSt"><option value="cur">Current</option><option value="dra">Draft</option><option value="rev">Under review</option><option value="sup">Superseded</option></select></label>
+    <label>Status<select id="upSt"><option value="rev">Under review (verify)</option><option value="cur">Current (verified)</option><option value="dra">Draft</option><option value="sup">Superseded</option></select></label>
     <label>Clearance level<select id="upCls">${lvlOpts}</select></label>
-    <label>Version<input id="upVer" value="1.0"></label>
+    <label>Version<input id="upVer" required placeholder="e.g. 1.0"></label>
+    <label>Repository<select id="upRepo"><option>Departmental DMS</option><option>SharePoint</option></select></label>
+    <label>Owner<input id="upOwner" value="${E(U.unit)}"></label>
+    <label>Document date<input id="upDate" type="date"></label>
   </div>
   <div id="upErr"></div>
   <button class="btn sm" type="submit" id="upSubmit">Process & add to knowledge base</button>
- </form>`:""}
+ </form>
+  <hr style="border:0;border-top:1px solid var(--line);margin:1rem 0">
+  <div id="webForm">
+    <b>Ingest an official government web source</b>
+    <div class="upgrid">
+      <label>HTTPS source URL (gov.za or treasury.gov.za)<input id="webUrl" type="url" required placeholder="https://www.gov.za/..."></label>
+      <label>Document title<input id="webTitle" required></label>
+      <label>Version<input id="webVer" required placeholder="e.g. 1.0"></label>
+      <label>Owner<input id="webOwner" value="${E(U.unit)}"></label>
+      <label>Document date<input id="webDate" type="date"></label>
+      <label>Status<select id="webSt"><option value="rev">Under review (verify)</option><option value="cur">Current (verified)</option><option value="dra">Draft</option><option value="sup">Superseded</option></select></label>
+      <label>Clearance level<select id="webCls">${lvlOpts}</select></label>
+    </div>
+    <div id="webErr"></div>
+    <button class="btn sm" type="button" id="webSubmit">Fetch and index source</button>
+  </div>`:""}
  <div class="search"><input id="sq" type="search" placeholder="Search your authorised documents" aria-label="Search documents" value="${E(q)}"><button class="btn" id="sb">Search</button></div>
  <div class="dl">${list.map(d=>`<button class="doc ${allowed(d)?"":"lock"}" data-d="${E(d.id)}"><span class="t"><b>${E(d.title)}</b><small>${E(d.cat)} · Owner: ${E(d.owner)} · v${E(d.ver)}${d.url?" · Public document":""}${d.uploaded?" · Uploaded":""}</small></span>${allowed(d)?"":'<span class="tag lk">Restricted</span>'}${stTag(d)}</button>`).join("")||"<p>No documents match. Try different words, or ask GovGuide, which also searches inside document sections.</p>"}</div>`;
 
@@ -307,16 +368,18 @@ function dash(){
    e.preventDefault();
    const file=$("#upFile").files[0];
    if(!file)return;
-   const btn=$("#upSubmit");btn.disabled=true;btn.textContent="Extracting text…";
+   const btn=$("#upSubmit");btn.disabled=true;btn.textContent="Extracting / OCR processing…";
    $("#upErr").innerHTML="";
    const fd=new FormData();
    fd.append("file",file);
-   fd.append("userId",U.id);
    fd.append("title",$("#upTitle").value.trim());
    fd.append("cat",$("#upCat").value);
    fd.append("st",$("#upSt").value);
    fd.append("cls",$("#upCls").value);
    fd.append("ver",$("#upVer").value.trim()||"1.0");
+   fd.append("repository",$("#upRepo").value);
+   fd.append("owner",$("#upOwner").value.trim());
+   fd.append("date",$("#upDate").value);
    try{
     const r=await fetch("/api/upload",{method:"POST",body:fd});
     const res=await r.json();
@@ -324,11 +387,40 @@ function dash(){
     showUpload=false;
     await fetchDocs();
     await checkHealth();
-    toast(`Added "${res.doc.title}" (${res.sectionCount} searchable sections).`);
+    renderProfile();
+    const piiNote=res.piiRedactedCount?` ${res.piiRedactedCount} personal-data pattern(s) were masked.`:"";
+    toast(`Added "${res.doc.title}" (${res.sectionCount} searchable sections).${piiNote}`);
     render();
    }catch(err){
     $("#upErr").innerHTML=`<div class="warn">${E(err.message)}</div>`;
     btn.disabled=false;btn.textContent="Process & add to knowledge base";
+   }
+  };
+ }
+ if(showUpload){
+  $("#webSubmit").onclick=async()=>{
+   const button=$("#webSubmit");
+   button.disabled=true;button.textContent="Fetching official source…";
+   $("#webErr").innerHTML="";
+   try{
+    const response=await fetch("/api/ingest/web",{
+     method:"POST",headers:{"Content-Type":"application/json"},
+     body:JSON.stringify({
+      url:$("#webUrl").value.trim(),title:$("#webTitle").value.trim(),
+      ver:$("#webVer").value.trim(),owner:$("#webOwner").value.trim(),
+      date:$("#webDate").value,st:$("#webSt").value,cls:$("#webCls").value
+     })
+    });
+    const data=await response.json();
+    if(!response.ok)throw new Error(data.error||"Could not index this source.");
+    showUpload=false;
+    await fetchDocs();await checkHealth();renderProfile();
+    const piiNote=data.piiRedactedCount?` ${data.piiRedactedCount} personal-data pattern(s) were masked.`:"";
+    toast(`Indexed "${data.doc.title}" (${data.sectionCount} sections).${piiNote}`);
+    render();
+   }catch(error){
+    $("#webErr").innerHTML=`<div class="warn">${E(error.message||"Could not ingest source.")}</div>`;
+    button.disabled=false;button.textContent="Fetch and index source";
    }
   };
  }
@@ -341,7 +433,7 @@ function chat(){
  $("#main").innerHTML=`<div class="chat"><div class="msgs" id="msgs" aria-live="polite"></div>
  <div class="qa" id="qa"></div>
  <form class="composer" id="cf"><button type="button" class="mic" id="mic" aria-label="Use voice input">🎤</button><input id="ci" placeholder="Ask about legislation, policy or procedure" aria-label="Your question" autocomplete="off"><button class="btn" type="submit">Ask</button></form>
- <div class="disc">${healthInfo?.geminiConfigured?`Gemini-powered (${E(healthInfo.model)})`:"Local Grounded Mode (add GEMINI_API_KEY to .env for live Gemini)"} · Answers are grounded in your authorised knowledge base. Always verify the cited source.</div></div>`;
+ <div class="disc">${healthInfo?.geminiConfigured?`Gemini-powered (${E(healthInfo.model)})`:"Local Grounded Mode (add GEMINI_API_KEY to .env for live Gemini)"} · Answers are grounded in your authorised knowledge base. This assistant informs; officials remain responsible for decisions. Always verify the cited source.</div></div>`;
  const ex=U.dept==="National Treasury"
   ?["Which legislation governs public financial management?","What do Treasury Regulations say about paying creditors within 30 days?","What is required for a Bid Evaluation Committee?","What are the requirements for approving a departmental project?"]
   :["What are the overtime rules?","Is Overtime Circular 4 of 2019 still valid?","What does the policy say about beneficiary selection?","What does the draft remote work policy say?","What are the requirements for approving a departmental project?"];
@@ -354,9 +446,32 @@ function chat(){
 }
 function paint(){
  const el=$("#msgs");if(!el)return;
- el.innerHTML=msgs.map((m,i)=>m.r==="u"?`<div class="m u">${E(m.t)}</div>`:`<div class="m a">${m.html}${m.docs&&m.docs.length?`<div class="src"><b style="font-size:.82rem">Sources</b>${m.docs.map(([id,sec])=>{const d=doc(id);if(!d)return"";return`<button class="sc" data-d="${E(id)}"><b>${E(d.title)}</b><span>${E(sec)}</span><span>v${E(d.ver)}</span>${stTag(d)}</button>`}).join("")}</div>`:""}${i>0&&!m.loading?`<div class="fb">Was this helpful? <button aria-label="Helpful" data-f="1">👍</button><button aria-label="Not helpful" data-f="0">👎</button></div>`:""}</div>`).join("");
+ el.innerHTML=msgs.map((m,i)=>m.r==="u"?`<div class="m u">${E(m.t)}</div>`:`<div class="m a">${m.html}${m.docs&&m.docs.length?`<div class="src"><b style="font-size:.82rem">Sources · open a source to inspect it</b>${m.docs.map(([id,sec])=>{const d=doc(id);if(!d)return"";return`<button class="sc" data-d="${E(id)}"><b>${E(d.title)}</b><span>${E(sec)}</span><span>v${E(d.ver)}</span>${stTag(d)}<span>Open source</span></button>`}).join("")}</div>`:""}${i>0&&!m.loading?`<div class="fb" data-mi="${i}">Was this helpful? <button aria-label="Helpful" data-f="1">👍</button><button aria-label="Not helpful" data-f="0">👎</button></div>`:""}</div>`).join("");
  el.querySelectorAll(".sc").forEach(b=>b.onclick=()=>openDoc(b.dataset.d));
- el.querySelectorAll(".fb button").forEach(b=>b.onclick=()=>{b.parentNode.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");toast("Thanks. Feedback goes to the knowledge team.")});
+ el.querySelectorAll(".fb button").forEach(b=>b.onclick=async()=>{
+  const box=b.closest(".fb"),item=msgs[Number(box.dataset.mi)];
+  if(item.feedbackSent)return;
+  const helpful=b.dataset.f==="1";
+  b.disabled=true;
+  try{
+   const response=await fetch("/api/feedback",{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+     question:item.question||"",
+     helpful,
+     docIds:(item.docs||[]).map(([id])=>id)
+    })
+   });
+   const data=await response.json();
+   if(!response.ok)throw new Error(data.error||"Feedback could not be saved.");
+   item.feedbackSent=true;
+   box.querySelectorAll("button").forEach(x=>{x.disabled=true;x.setAttribute("aria-pressed",String(x===b))});
+   toast("Thanks. Feedback has been recorded for review.");
+  }catch(error){
+   b.disabled=false;
+   toast(error.message||"Feedback could not be recorded.");
+  }
+ });
  el.scrollTop=el.scrollHeight;
 }
 async function ask(t){
@@ -378,20 +493,22 @@ async function ask(t){
     const response=await fetch("/api/chat",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({userId:U.id,question:t,history})
+      body:JSON.stringify({question:t,history})
     });
     const data=await response.json();
     if(!response.ok)throw new Error(data.error||"The AI service could not complete your request.");
     const safeText=E(data.answer||"I couldn’t generate a reliable answer.").replace(/\n/g,"<br>");
     const modeNote=data.mode==="local-fallback"
-      ?"Grounded local retrieval response (no GEMINI_API_KEY set in .env). Verify the cited source before acting."
+      ?"Grounded local retrieval response. Verify the cited source before acting."
       :"AI-generated response grounded in your authorised knowledge base. Verify the cited source before acting.";
+    const serviceNotice=data.notice?`<p class="disc">${E(data.notice)}</p>`:"";
     const result={
       r:"a",
+      question:t,
       plain:data.answer||"",
       html:(data.unknown?'<div class="info"><b>Insufficient evidence or restricted access.</b> </div>':"")+`<p>${safeText}</p>`+
         (data.referral?`<p><b>Suggested referral:</b> ${E(data.referral)}</p>`:"")+
-        `<p class="disc">${modeNote}</p>`,
+        `<p class="disc">${modeNote}</p>${serviceNotice}`,
       docs:(data.sources||[]).map(s=>[s.id,s.section||"Relevant source document"]),
       unknown:!!data.unknown
     };
@@ -435,15 +552,15 @@ function openDoc(id){
  const rq=$("#req");if(rq)rq.onclick=()=>{toast("Request sent to "+d.owner+" (simulated).");closeDrawer()};
  const del=$("#delDoc");
  if(del)del.onclick=async()=>{
-  try{
-   const r=await fetch(`/api/upload/${encodeURIComponent(d.id)}?userId=${encodeURIComponent(U.id)}`,{method:"DELETE"});
-   if(!r.ok)throw new Error("Delete failed");
-   closeDrawer();await fetchDocs();await checkHealth();render();toast("Uploaded document removed.");
-  }catch{toast("Could not remove document.")}
+   try{
+    const r=await fetch(`/api/upload/${encodeURIComponent(d.id)}`,{method:"DELETE"});
+    if(!r.ok)throw new Error("Delete failed");
+    closeDrawer();await fetchDocs();await checkHealth();renderProfile();render();toast("Uploaded document removed.");
+   }catch{toast("Could not remove document.")}
  };
 }
 function closeDrawer(){const d=$("#drawer");d.classList.remove("open");d.setAttribute("aria-hidden","true")}
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDrawer();toggleProfile(false)}});
 </script>
 </body>
 </html>

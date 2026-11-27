@@ -1,0 +1,10 @@
+node_modules/
+.vs/
+.env
+*.zip
+data/.session-secret
+data/.ocr-cache/
+data/accounts.json
+data/governance.json
+data/uploads.json
+*.traineddata
